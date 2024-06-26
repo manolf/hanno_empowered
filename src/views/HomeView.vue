@@ -23,7 +23,7 @@
               <h2 class="pb-4">Willkommen liebe Freund:Innen einer bewegten Adventzeit!! </h2>
               <p class="fw-bold">noch soooo lange hin..</p>
               <p>..trotzdem bereiten wir uns schon jetzt intensiv auf die große Adventszeit vor!
-              Es wird wieder Tabata-Workoutmat im gewohnten Format geben, die euch in Schwung und Form bringen werden. 
+              Es wird wieder Tabata-Workouts im gewohnten Format geben, die euch in Schwung und Form bringen werden. 
               Die Yogis unter euch werden auch auf ihre Kosten kommen, versprochen!
               </p>
 
@@ -81,9 +81,8 @@ h4 {
   color:#c8560f;
 }
 
-
-h2 {
-  color:#c8560f;
+h2{
+  color: #c8560f;
 }
 
 ul {
