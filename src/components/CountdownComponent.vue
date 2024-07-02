@@ -50,22 +50,4 @@ export default {
 	animation: ant-border 1s infinite; */
 }
 
-/*@keyframes ant-border {
-	0% {
-		border-color: rgb(82, 11, 11) transparent rgb(82, 11, 11) transparent;
-	}
-	25% {
-		border-color: transparent rgb(82, 11, 11) transparent rgb(82, 11, 11);
-	}
-	50% {
-		border-color: rgb(82, 11, 11) transparent rgb(82, 11, 11) transparent;
-	}
-	75% {
-		border-color: transparent rgb(82, 11, 11) transparent rgb(82, 11, 11);
-	}
-	100% {
-		border-color: rgb(82, 11, 11) transparent rgb(82, 11, 11) transparent;
-	}
-}*/
-
   </style>

@@ -69,20 +69,18 @@ export default {
 </script>
 
 <style scoped>
+
 font-family: "Fahkwang", sans-serif, -apple-system, BlinkMacSystemFont,
 "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
 sans-serif;
 margin: 0;
 
-h1,
-h2,
-h3,
-h4 {
+h2, h3, h4{
   color:#c8560f;
 }
 
 h2{
-  color: #c8560f;
+  color:#c8560f;
 }
 
 ul {
