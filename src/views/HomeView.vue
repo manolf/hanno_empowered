@@ -33,6 +33,38 @@
           </div>
       </div>
 
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="p-4 border rounded">
+
+              <h2>Hannos Geschichte</h2>
+              <div class="row">
+                <div class="col-6"><img src="../assets/img/baerenstarker_hanno.png" class="img-fluid" alt="logo_hanno"></div>
+                <div class="col-6 mt-4">
+                  <br><br><br><br><br><br><router-link to="/tale">
+                    es war einmal...
+                  </router-link><br><br><br><br><br><br>
+                  <p>Hier kannst du unseren Held kennenlernen.. Wie kam es eigentlich dazu, dass er nun heute mit Santa Geschenke austragen darf?</p></div>
+    
+              </div>
+
+              
+
+              
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+              <h2>Zum Adventkalender</h2>
+
+              <p>.. unser sportlicher Klassiker - click and enjoy</p>
+               <router-link to="/calendar">
+                  <img src="../assets/img/screenshot_calendar.png" class="img-fluid" alt="adventkalender">
+                </router-link>
+        </div>
+
+      </div>
+
       <!-- Footer meanwhile -->
       <div class="row">
           <div class="col text-center my-4"> 
