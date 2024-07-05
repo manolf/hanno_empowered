@@ -1,31 +1,47 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-
-  </div>
   <div>
     <h1>Adventkalender 2024</h1>
+    <p>Kachel clicked: {{ clicked }}</p>
+    <p>DayId: {{ testId }}</p>
+    <!-- <KachelComponent :clicked="clicked" :dayId="testId"></KachelComponent> -->
   </div>
-  <div>
+  
+
+  <!-- <div>
     <h2>erster Test axios</h2>
+{{ data }}
     <ul>
       <li v-for="item in data" :key="item.dayId">{{ item.dayId }}</li>
     </ul>
+  </div> -->
+
+  <div class="container container-cal pb-5" id="adventtage">
+
+    <div v-for="item in this.data" :key="item.dayId">
+      <KachelComponent 
+        v-if="item.dayId < 100"  
+        :clicked="clicked" 
+        :dayId="item.dayId">
+      </KachelComponent>
+    </div>
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import KachelComponent from './KachelComponent.vue';
 
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  },
+  name: 'CalendarComponent',
+  components: { 
+      KachelComponent
+    },
   data() {
     return {
       data: [],
-      daydata: []
+      clicked: true,
+      testId: 13
     };
   },
   mounted() {
@@ -51,7 +67,10 @@ export default {
     //     .catch(error => {
     //       console.error('Error fetching data:', error);
     //     });
-    // },
+    // },fetch all-> it halloawerssss
+    //alles 
+
+    
     fetchData() {
       axios.get('http://localhost/vue-php-backend/data.php') // Adjust the URL as per your setup
         .then(response => {
@@ -67,18 +86,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #b99f42;
+.container-cal {
+  background-color: rgb(102, 102, 51) !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>
