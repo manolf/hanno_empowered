@@ -4,10 +4,11 @@
     <p>Received clicked: {{ clicked }}</p>
     <p>Received dayId: {{ dayId }}</p> -->
 
+    <!-- Modal
     <div>
       <a href="#" @click.prevent="openModal">Open Modal</a>
       <ModalComponent :dayId="dayId" :isVisible="isModalVisible" @close="closeModal" />
-    </div>
+    </div> -->
 
 
     <!-- <div class='card  window bild_beschriftung id= <?= $day['dayId'] ?>'>
@@ -23,7 +24,9 @@
       
      </a>
   </div> -->
-  <div class="card window">
+
+  <!-- Modal -->
+  <!-- <div class="card window">
     <a href="#" @click.prevent="openModal">
       <img
         class="unclicked"
@@ -32,19 +35,37 @@
         style='width: 150px; height: 150px; background-color: white'
       />
     </a>
+  </div> -->
+
+  <!-- own page -->
+  <div class="card window">
+    <router-link :to="{ name: 'DayView', params: { id: dayId}}">
+      <img
+        class="unclicked"
+        :src="getImageSrc(dayId)"
+        alt="icon"
+        style='width: 150px; height: 150px; background-color: white'
+      />
+    </router-link>
   </div>
+
+  <!-- Anzeige Day component -->
+  <!-- <DayComponent :id="Number(dayId)"/> -->
+
 
   </div>
 </template>
 
 <script>
 
-import ModalComponent from './ModalComponent.vue';
+//import ModalComponent from './ModalComponent.vue';
+//import DayComponent from './DayComponent.vue';
 
 export default {
   name: 'KachelComponent',
   components: {
-    ModalComponent
+   // DayComponent
+    //ModalComponent
   },
   props: {
     clicked: {
@@ -58,7 +79,8 @@ export default {
   },
   data(){
     return {
-      isModalVisible: false
+      isModalVisible: false,
+      selectedId: {}
     }
   },
   methods: {
@@ -70,6 +92,11 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    openPage() {
+      this.selectedId = this.dayId;
+			console.log("id: " + this.dayId);
+			console.log(this.selectedId);
     }
     // getLinkToDayModal(dayId) {
     //   return require ()

@@ -49,30 +49,9 @@ export default {
    // this.fetchDayData();
   },
   methods: {
-    // version with nodejs
-    // fetchData() {
-    //   axios.get('http://localhost:5000/api/data')
-    //     .then(response => {
-    //       this.data = response.data;
-    //     })
-    //     .catch(error => {
-    //       console.error('Error fetching data:', error);
-    //     });
-    // },
-    // fetchDayData() {
-    //   axios.get('http://localhost:5000/api/daydata')
-    //     .then(response => {
-    //       this.daydata = response.data;
-    //     })
-    //     .catch(error => {
-    //       console.error('Error fetching data:', error);
-    //     });
-    // },fetch all-> it halloawerssss
-    //alles 
-
-    
+  
     fetchData() {
-      axios.get('http://localhost/vue-php-backend/data.php') // Adjust the URL as per your setup
+      axios.get('http://localhost/backend-hanno-empowered/calendar.php') // Adjust the URL as per your setup
         .then(response => {
           this.data = response.data;
         })

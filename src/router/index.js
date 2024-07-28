@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue';
 import CalendarView from '../views/CalendarView.vue';
 import TaleView from '../views/TaleView.vue';
+import DayView from '../views/DayView.vue';
 
 const routes = [
   {
@@ -13,6 +14,12 @@ const routes = [
     path: '/calendar',
     name: 'Calendar',
     component: CalendarView
+  },
+  {
+    path: '/calendar/:id',
+    name: 'DayView',
+    component: DayView,
+    props: true
   },
   {
     path: '/tale',
