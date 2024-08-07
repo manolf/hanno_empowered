@@ -3,6 +3,9 @@
     <h1>Adventkalender 2024</h1>
     <p>Kachel clicked: {{ clicked }}</p>
     <p>DayId: {{ testId }}</p>
+    <p>userId: {{userId}}</p>
+
+    {{ userData }}
     <!-- <KachelComponent :clicked="clicked" :dayId="testId"></KachelComponent> -->
   </div>
   
@@ -37,16 +40,29 @@ export default {
   components: { 
       KachelComponent
     },
+    computed: {
+      userId() {
+        return this.$userId; // Access global property
+      }
+    },
   data() {
     return {
       data: [],
+      userData: {},
       clicked: true,
-      testId: 13
+      testId: 13,
     };
   },
+  // provide(){
+  //   return {
+  //     userId: 112233
+  //   }
+  // },
   mounted() {
     this.fetchData();
    // this.fetchDayData();
+   console.log('Component mounted, userId:', this.$userId); 
+   this.getOffeneKachelnByUserId()
   },
   methods: {
   
@@ -57,6 +73,22 @@ export default {
         })
         .catch(error => {
           console.error('Error fetching data:', error);
+        });
+    },
+    getOffeneKachelnByUserId() {
+      console.log(this.$userId);
+      axios.get('http://localhost/backend-hanno-empowered/user.php', {
+                params: {
+                    action: 'fetchuserdata',
+                    userId: this.$userId
+                }
+            })
+        .then(response => {
+                  console.log('Response data:', response.data); // Debugging: check response
+          this.userData = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching userData:', error);
         });
     }
   }

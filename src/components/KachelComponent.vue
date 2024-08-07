@@ -75,29 +75,31 @@ export default {
     dayId: {
       type: Number,
       required: true
-    }
+    },
   },
   data(){
     return {
-      isModalVisible: false,
-      selectedId: {}
+      // isModalVisible: false,
+      // selectedId: {},
+      // user: {}
     }
   },
   methods: {
     getImageSrc(dayId) {
       return require(`../assets/img/icon/${dayId}.png`);
     },
-    openModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    },
-    openPage() {
-      this.selectedId = this.dayId;
-			console.log("id: " + this.dayId);
-			console.log(this.selectedId);
-    }
+    // openModal() {
+    //   this.isModalVisible = true;
+    // },
+    // closeModal() {
+    //   this.isModalVisible = false;
+    // },
+    // openPage() {
+    //   this.selectedId = this.dayId;
+		// 	console.log("id: " + this.dayId);
+		// 	console.log(this.selectedId);
+    //   console.log("user: " + this.userId);
+    // }
     // getLinkToDayModal(dayId) {
     //   return require ()
     // }
