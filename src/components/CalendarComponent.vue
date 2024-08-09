@@ -5,26 +5,21 @@
     <p>DayId: {{ testId }}</p>
     <p>userId: {{userId}}</p>
 
-    {{ userData }}
+    {{ kachelOpened }}
+    {{ kachelOpened.dayId }}
     <!-- <KachelComponent :clicked="clicked" :dayId="testId"></KachelComponent> -->
   </div>
   
-
-  <!-- <div>
-    <h2>erster Test axios</h2>
-{{ data }}
-    <ul>
-      <li v-for="item in data" :key="item.dayId">{{ item.dayId }}</li>
-    </ul>
-  </div> -->
 
   <div class="container container-cal pb-5" id="adventtage">
 
     <div v-for="item in this.data" :key="item.dayId">
       <KachelComponent 
         v-if="item.dayId < 100"  
-        :clicked="clicked" 
-        :dayId="item.dayId">
+        :clicked="checkDayIdExists(item.dayId)" 
+        :dayId="item.dayId"
+        :itemArray="filterByDayId(item.dayId)" 
+        >
       </KachelComponent>
     </div>
 
@@ -43,14 +38,18 @@ export default {
     computed: {
       userId() {
         return this.$userId; // Access global property
-      }
+      },
+      // kachelOpened(dayId){
+      //   return this.kachelOpened.dayId
+      // }
     },
   data() {
     return {
       data: [],
-      userData: {},
-      clicked: true,
-      testId: 13,
+      kachelOpened: [],
+     // kachelArray: [],
+      //unclicked: false,
+      //testId: 13,
     };
   },
   // provide(){
@@ -65,7 +64,6 @@ export default {
    this.getOffeneKachelnByUserId()
   },
   methods: {
-  
     fetchData() {
       axios.get('http://localhost/backend-hanno-empowered/calendar.php') // Adjust the URL as per your setup
         .then(response => {
@@ -85,12 +83,19 @@ export default {
             })
         .then(response => {
                   console.log('Response data:', response.data); // Debugging: check response
-          this.userData = response.data;
+          this.kachelOpened = response.data;
         })
         .catch(error => {
           console.error('Error fetching userData:', error);
         });
-    }
+    },
+    //TODO(Manu) maybe not necessary, check if existing Array might be sufficent
+    checkDayIdExists(searchId) {
+      return this.kachelOpened.some(item => item.dayId === Number(searchId));
+    },
+    filterByDayId(searchId) {
+      return this.kachelOpened.filter(item => item.dayId === Number(searchId));
+}
   }
 }
 </script>

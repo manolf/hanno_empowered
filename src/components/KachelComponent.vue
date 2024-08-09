@@ -1,59 +1,34 @@
 <template>
   <div>
-    <!-- <h1>KachelComponent</h1>
-    <p>Received clicked: {{ clicked }}</p>
-    <p>Received dayId: {{ dayId }}</p> -->
 
-    <!-- Modal
-    <div>
-      <a href="#" @click.prevent="openModal">Open Modal</a>
-      <ModalComponent :dayId="dayId" :isVisible="isModalVisible" @close="closeModal" />
-    </div> -->
+    <!-- style='width: 150px; height: 150px; background-color: white' -->
 
-
-    <!-- <div class='card  window bild_beschriftung id= <?= $day['dayId'] ?>'>
-      <a <?= $notClickable ?> href='day.php?dayId= <?= $day['dayId'] ?>'>  <img class='caro <?= $kachelType ?>'
-       src= "./assets/img/icon/<?= $day['dayId'] ?>.png" 
-      style='width: 150px; height: 150px; background-color: white' alt='icon'></a>
-      <input type='hidden' name='dayId' value= <?= $day['dayId'] ?>>
-  </div> -->
-
-  <!-- <div class="card window">
-    <a href='#'>  <img class='caro' src='../assets/img/icon/1.png'
-      style='width: 150px; height: 150px; background-color: white' alt='icon'>
-      
-     </a>
-  </div> -->
-
-  <!-- Modal -->
-  <!-- <div class="card window">
-    <a href="#" @click.prevent="openModal">
-      <img
-        class="unclicked"
-        :src="getImageSrc(dayId)"
-        alt="icon"
-        style='width: 150px; height: 150px; background-color: white'
-      />
-    </a>
-  </div> -->
-
-  <!-- own page -->
-  <div class="card window">
-    <router-link :to="{ name: 'DayView', params: { id: dayId}}">
-      <img
-        class="unclicked"
-        :src="getImageSrc(dayId)"
-        alt="icon"
-        style='width: 150px; height: 150px; background-color: white'
-      />
-    </router-link>
-  </div>
-
-  <!-- Anzeige Day component -->
-  <!-- <DayComponent :id="Number(dayId)"/> -->
+    <!-- own page -->
+    <div v-if="clicked" class="card window">
+      <!-- <router-link :to="{ name: 'DayView', params: { id: dayId}}"> -->
+        <div>
+          <img
+            :class="clicked"     
+          />
+          {{dayId}}<br><br>
+          <a :href="itemArray[0].linkShort">{{itemArray[0].tabataName}}</a>
+          
+      </div>
+    </div>
+    <div v-else class="card window">
+      <router-link :to="{ name: 'DayView', params: { id: dayId}}">
+        <img
+          :class="[ today < dayId ? 'notReady' : '', unclicked]"
+          :src="getImageSrc(dayId)"
+          alt="icon"
+          style='width: 150px; height: 150px; background-color: white'
+        />
+      </router-link>
+    </div>
 
 
-  </div>
+
+  </div>             
 </template>
 
 <script>
@@ -64,8 +39,6 @@
 export default {
   name: 'KachelComponent',
   components: {
-   // DayComponent
-    //ModalComponent
   },
   props: {
     clicked: {
@@ -76,39 +49,40 @@ export default {
       type: Number,
       required: true
     },
+    itemArray: {
+      type: Array,
+      required: false
+    }
   },
   data(){
     return {
-      // isModalVisible: false,
-      // selectedId: {},
-      // user: {}
+      today: null
     }
+  },
+  created() {
+    this.today = this.calculateToday();
   },
   methods: {
     getImageSrc(dayId) {
       return require(`../assets/img/icon/${dayId}.png`);
     },
-    // openModal() {
-    //   this.isModalVisible = true;
-    // },
-    // closeModal() {
-    //   this.isModalVisible = false;
-    // },
-    // openPage() {
-    //   this.selectedId = this.dayId;
-		// 	console.log("id: " + this.dayId);
-		// 	console.log(this.selectedId);
-    //   console.log("user: " + this.userId);
-    // }
-    // getLinkToDayModal(dayId) {
-    //   return require ()
-    // }
+    calculateToday() {
+      const currentDate = new Date();
+      const dayNumber = currentDate.getDate();
+
+      return dayNumber;
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+a {
+  text-decoration: none;
+  color:white;
+}
 
 .card:hover {
   transform: scale(1.05);
@@ -139,7 +113,7 @@ export default {
     border-radius: 5%;
     margin: 1rem;
     /* color: red; */
-    font-size: 24px;
+    /*font-size: 24px;*/
     min-width: 150px;
     /* -webkit-transition-duration: 1s;
     -moz-transition-duration: 1s;
@@ -149,6 +123,8 @@ export default {
     -moz-transition-property: -moz-transform;
     -o-transition-property: -o-transform;
     transition-property: transform; */
+    color: white;
+    font-size: 12pt !important;
   }
   
   .notReady:hover {
@@ -158,15 +134,16 @@ export default {
     transition: 1s;
   }
   
-  /* .clicked {
+   .clicked {
     background-color: red;
     border-radius: 5pt;
-    transition: 1s;
-  } */
+
+  }
   
-  .clicked {
+  .unclicked {
     color: white;
     font-size: 12pt !important;
+    background-color: white;
   }
 
   /* .clickable{
