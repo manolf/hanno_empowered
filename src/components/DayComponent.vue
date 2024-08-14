@@ -68,8 +68,23 @@
 
                                     <h6>Wenn ihr das Workout geschafft habt, einfach den grünen Button klicken.</h6>
 
+                                    <div>
 
-                                    <a href="#index.php/tabata/add/<?=$dataEasy['tabataId']?>/<?=$dayId?>" class="btn btn-outline btn-success">Workout absolviert</a>
+                                        <button
+                                            class="btn btn-outline btn-success"
+                                            @click="saveTabata(userId, dayData.tabataId, dayId)"
+                                            >
+                                            Workout absolviert
+                                        </button>
+                                      </div>
+
+                                    <!-- <a 
+                                    href="index.php/tabata/add/<?=$dataEasy['tabataId']?>/<?=$dayId?>" 
+                                    class="btn btn-outline btn-success"
+                                    @click="saveTabata(userId, tabataId, dayId)"
+                                    >
+                                        Workout absolviert
+                                    </a> -->
 
                                 
                                     <hr>
@@ -114,7 +129,8 @@ export default {
           //  data: [],
           // allData: [],
             dayData: {},
-            imgSrc: ''
+            imgSrc: '',
+            message: ''
         }
     },
     computed: {
@@ -148,28 +164,34 @@ export default {
                 return; // Exit if data is not ready
             }
 
-            // Get the string from dayData
             let newStr = this.dayData.elfPic.trim();
-
-            // Optionally, validate or modify the string if necessary
-            // For example, ensure it starts with the correct path
-            // if (!newStr.startsWith('.img/')) {
-            // newStr = `./img/${newStr}`;
-            // }
-
             let constructedString = newStr.slice(2); // Remove the first two characters
 
-           //constructedString = `../assets/${constructedString}`;
             // Use require to load the image
             constructedString = require(`@/assets${newStr.slice(1)}`);
-
-
-            // Set the processed string as the image source
-            console.log(constructedString);
-            //console.log result:
-            //../assets/img/handstand.png --> /img/handstand.5ac36bd3.png
-
             this.imgSrc = constructedString;
+        },
+        async saveTabata(userId, tabataId, dayId){
+            try {
+                const data = {
+                    action: 'inserttabata',
+                    dayId: dayId,
+                    tabataId: tabataId,
+                    userId: userId
+                };
+                console.log("Gesendete Daten:", data); 
+                const response = await axios.post('http://localhost/backend-hanno-empowered/user.php', data);
+                this.message = response.data.message; 
+                alert("Hurra, dein Workout wurde erfolgreich gespeichert!");
+                //danach Weiterleitung auf Kalenderseite
+                this.$router.push('/calendar');
+
+
+            } 
+            catch (error) {
+                console.error('Fehler beim Speichern:', error);
+                this.message = 'Fehler beim Speichern der Daten.';
+            }
         },
         // fetchAllData() {
         //     axios.get('http://localhost/backend-hanno-empowered/day.php', {
@@ -188,8 +210,6 @@ export default {
         // });
         // },
         fetchSingleDay() {
-            console.log(this.dayId);
-            console.log(this.id);
             axios.get('http://localhost/backend-hanno-empowered/day.php', {
                 params: {
                     action: 'fetchsingle',

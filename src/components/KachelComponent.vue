@@ -18,7 +18,7 @@
     <div v-else class="card window">
       <router-link :to="{ name: 'DayView', params: { id: dayId}}">
         <img
-          :class="[ today < dayId ? 'notReady' : '', unclicked]"
+          :class="[ today < dayId ? 'notReady unclickable' : '', unclicked]"
           :src="getImageSrc(dayId)"
           alt="icon"
           style='width: 150px; height: 150px; background-color: white'
@@ -146,7 +146,7 @@ a {
     background-color: white;
   }
 
-  /* .clickable{
+ /*.unclickable{
     pointer-events: none;
     cursor: default;
   } */
@@ -162,10 +162,10 @@ a {
     /* background: rgb(211, 25, 25); */
   }
 
-  .unclicked {
+/*.unclicked {
     width: 150px; 
     height: 150px; 
-    background-colour: 'white';
-  }
+    background-color: 'white';
+  } */
 
 </style>

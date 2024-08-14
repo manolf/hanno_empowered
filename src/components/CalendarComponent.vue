@@ -74,7 +74,6 @@ export default {
         });
     },
     getOffeneKachelnByUserId() {
-      console.log(this.$userId);
       axios.get('http://localhost/backend-hanno-empowered/user.php', {
                 params: {
                     action: 'fetchuserdata',
@@ -91,6 +90,7 @@ export default {
     },
     //TODO(Manu) maybe not necessary, check if existing Array might be sufficent
     checkDayIdExists(searchId) {
+      console.log("id: " + searchId);
       return this.kachelOpened.some(item => item.dayId === Number(searchId));
     },
     filterByDayId(searchId) {
