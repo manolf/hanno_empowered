@@ -1,21 +1,5 @@
 <template>
 
-
-<!-- <h2>Day Component</h2>
-<div v-if="dayData">
-    {{ dayData.elfPic}}
-    <div v-if="dayData">
-        <p v-html="dayData.beschreibung"></p>
-      </div>
-</div>
-<br> -->
-
-{{ dayData }}
-<br>
-<div>userId: {{userId}} </div>
-<div>dayId: {{dayId}} </div>
-
-
 <div class="wrapper">
     <div class="left container container-day my-5 z-depth-1 rounded bg-white">
         <!--Section: Content-->
@@ -59,10 +43,7 @@
                             <div class="form-group">
 
                                 <h3 class="text-success font-weight-bold">{{dayData.tabataName}}</h3>
-
-                                    <p>
-                                        {{dayData.description}}
-                                    </p>
+                                    <p v-html="dayData.description"></p>
                                     <p> <strong>Musik: </strong> {{dayData.music}} </p>
                                     <p> <strong>performed by: </strong>  {{dayData.performedBy}} </p>
 
@@ -142,8 +123,6 @@ export default {
         }
     },
     mounted() {
-
-       // this.fetchAllData();
         this.fetchSingleDay();
 
     },
@@ -183,6 +162,7 @@ export default {
                 const response = await axios.post('http://localhost/backend-hanno-empowered/user.php', data);
                 this.message = response.data.message; 
                 alert("Hurra, dein Workout wurde erfolgreich gespeichert!");
+
                 //danach Weiterleitung auf Kalenderseite
                 this.$router.push('/calendar');
 
@@ -237,39 +217,6 @@ export default {
                 console.error('Error fetching All Day data:', error);
             });
         },
-        // addWorkout(){
-        //     axios.get('http://localhost/backend-hanno-empowered/day.php', {
-        //         params: {
-        //             action: 'inserttabata',
-        //             dayId: this.dayId,
-        //             tabataId: this.tabataId,
-        //             userId: this.userId
-        //         }
-        //     })
-        //     .then(response => {
-
-        //         // Decode textfields
-        //         response.data.beschreibung = this.decodeHtmlEntities(
-        //             response.data.beschreibung
-        //         );
-
-        //         //warum haut decodieren in diesem Fall nicht hin?
-        //         response.data.description = this.decodeHtmlEntities(
-        //             response.data.description
-        //         );
-
-        //         this.dayData = response.data;
-
-        //         // Call processImageString after dayData has been set
-        //         this.processImageString();
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching All Day data:', error);
-        //     });
-        //     //axios action: 
-        //     //$sql = "INSERT INTO calendar SET userId = $userId, tabataId = $tabataId, dayId = $dayId";
-        // }
-
     },
 }
 </script>
