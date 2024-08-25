@@ -1,12 +1,25 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> | 
     <router-link to="/calendar">Kalender</router-link> | 
     <router-link to="/tale">Hannos Geschichte</router-link>
-  </nav>
+  </nav> -->
+
+  <NavbarComponent/>
   <router-view/>
 </template>
+
+<script>
+import NavbarComponent from './components/NavbarComponent.vue';
+
+export default {
+  name: 'App',
+  components: {
+    NavbarComponent,
+  },
+};
+</script>
 
 <style>
 #app {

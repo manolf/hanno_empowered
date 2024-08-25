@@ -48,7 +48,7 @@
                                     
                                     <p> <strong>performed by: </strong>  {{dayData.performedBy}} </p>
 
-                                    <h6>Wenn du das Workout geschafft habt, einfach den grünen Button klicken.</h6>
+                                    <h6>Wenn du das Workout geschafft hast, einfach den grünen Button klicken.</h6>
 
                                     <div>
                                         <button

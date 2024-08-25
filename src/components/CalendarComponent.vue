@@ -5,8 +5,8 @@
     <p>DayId: {{ testId }}</p>
     <p>userId: {{userId}}</p>
 
-    {{ kachelOpened }}
-    {{ kachelOpened.dayId }}
+    <!-- {{ kachelOpened }}
+    {{ kachelOpened.dayId }} -->
     <!-- <KachelComponent :clicked="clicked" :dayId="testId"></KachelComponent> -->
   </div>
   
