@@ -1,36 +1,36 @@
 <template>
+<div>
 
-<div class="wrapper">
-    <div class="left container container-day my-5 z-depth-1 rounded bg-white">
-        <!--Section: Content-->
-        <section class="dark-grey-text">
-            <div class="row pr-lg-5">
-                <div class="col-md-7 mb-4">
-                    <div class="view">
-                        <img
-                            class="img-fluid mt-4 rounded"
-                            :src="imgSrc"
-                            alt="picture"
-                            style="width: 100%; height: auto;"
-                        />
+    <div class="wrapper">
+        <div class="left container container-day my-5 z-depth-1 rounded bg-white">
+            <!--Section: Content-->
+            <section class="dark-grey-text">
+                <div class="row pr-lg-5">
+                    <div class="col-md-7 mb-4">
+                        <div class="view">
+                            <img
+                                class="img-fluid mt-4 rounded"
+                                :src="imgSrc"
+                                alt="picture"
+                                style="width: 100%; height: auto;"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center mb-4">
+                        <div>
+                            <h3 class="font-weight-bold mb-4"> Tag {{dayData.dayId}}</h3>
+                            <h6 v-html="dayData.beschreibung"></h6>
+
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-5 d-flex align-items-center mb-4">
-                    <div>
-                        <h3 class="font-weight-bold mb-4"> Tag {{dayData.dayId}}</h3>
-                        <h6 v-html="dayData.beschreibung"></h6>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--Section: Content-->
+            </section>
+            <!--Section: Content-->
+        </div>
     </div>
-</div>
 
-<div class="wrapper">
-
-    <div class="left container container-day my-5 z-depth-1 rounded bg-white">
+    <div class="wrapper">
+        <div class="left container container-day my-5 z-depth-1 rounded bg-white">
             <!--Section: Content-->
             <section class="dark-grey-text">
                 <div class="row pr-lg-5">
@@ -44,30 +44,20 @@
 
                                 <h3 class="text-success font-weight-bold">{{dayData.tabataName}}</h3>
                                     <p v-html="dayData.description"></p>
-                                    <p> <strong>Musik: </strong> {{dayData.music}} </p>
+                                    <p> <strong>Musik: </strong><span v-html="dayData.music"></span></p>
+                                    
                                     <p> <strong>performed by: </strong>  {{dayData.performedBy}} </p>
 
-                                    <h6>Wenn ihr das Workout geschafft habt, einfach den grünen Button klicken.</h6>
+                                    <h6>Wenn du das Workout geschafft habt, einfach den grünen Button klicken.</h6>
 
                                     <div>
-
                                         <button
                                             class="btn btn-outline btn-success"
                                             @click="saveTabata(userId, dayData.tabataId, dayId)"
                                             >
                                             Workout absolviert
                                         </button>
-                                      </div>
-
-                                    <!-- <a 
-                                    href="index.php/tabata/add/<?=$dataEasy['tabataId']?>/<?=$dayId?>" 
-                                    class="btn btn-outline btn-success"
-                                    @click="saveTabata(userId, tabataId, dayId)"
-                                    >
-                                        Workout absolviert
-                                    </a> -->
-
-                                
+                                    </div> 
                                     <hr>
                             </div>
                         </section>
@@ -75,21 +65,17 @@
 
                     <!-- rechts -->
                     <div class="col-md-5 d-flex align-items-center mb-4">
-
-                    <div id="video" style="width:100%;">
-                        
-                        {{ dayData.link}}
-
-
-                        
+                        <div id="video" style="width:100%;">                      
+                            <span v-html="dayData.link"></span>       
                         </div>
-
+                        <hr>
                     </div>
                 </div>
             </section>
             <!--Section: Content-->
         </div>
     </div>
+</div>
 
 </template>
 
