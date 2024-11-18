@@ -22,16 +22,43 @@ const app = createApp(App);
 
 //Cookie management
 const COOKIE_NAME = 'userId';
+
 let userId = getCookie(COOKIE_NAME);
+
 
 if (!userId) {
   userId = generateRandomUserId();
   setCookie(COOKIE_NAME, userId, 365); // Setze Cookie für 1 Jahr
 }
 
+
 // Set global property
-app.config.globalProperties.$userId = 1501233919; // Example User ID
-//app.config.globalProperties.$userId = userId;
+//app.config.globalProperties.$userId = 12312312; // Example User ID
+app.config.globalProperties.$userId = userId;
+
+//global property for backend link
+const isProduction = process.env.NODE_ENV === 'production';
+const hostname = window.location.hostname;
+let backendLink;
+
+if (isProduction) {
+  // Handle production cases
+  if (hostname === 'test.fitmithanno.fun') {
+    backendLink = 'https://test.fitmithanno.fun/api';
+  } else if (hostname === 'www.fitmithanno.fun') {
+    backendLink = 'https://www.fitmithanno.fun/api';
+  } else {
+    // Default to a fallback URL if the subdomain is unexpected
+    backendLink = 'https://www.fitmithanno.fun/api';
+  }
+} else {
+  // For development, always use localhost API
+  backendLink = 'http://localhost/api';
+}
+
+app.config.globalProperties.$backendlink = backendLink;
+
+
 
 app.use(router);
 app.use(bootstrap);

@@ -97,7 +97,8 @@ export default {
           // allData: [],
             dayData: {},
             imgSrc: '',
-            message: ''
+            message: '',
+            //backend: 'http://localhost/backend-hanno-empowered'
         }
     },
     computed: {
@@ -106,7 +107,10 @@ export default {
         },
         userId() {
             return this.$userId; // Access global property
-        }
+        },
+        backend(){
+        return this.$backendlink;
+      }
     },
     mounted() {
         this.fetchSingleDay();
@@ -145,7 +149,7 @@ export default {
                     userId: userId
                 };
                 console.log("Gesendete Daten:", data); 
-                const response = await axios.post('http://localhost/backend-hanno-empowered/user.php', data);
+                const response = await axios.post(this.backend + '/user.php', data);
                 this.message = response.data.message; 
                 alert("Hurra, dein Workout wurde erfolgreich gespeichert!");
 

@@ -1,9 +1,14 @@
 <template>
   <div>
-    <h1>Adventkalender 2024</h1>
+    HOHOHO
     <p>Kachel clicked: {{ clicked }}</p>
     <p>DayId: {{ testId }}</p>
     <p>userId: {{userId}}</p>
+
+    <p>backend: {{ backendlink }} {{backend}} </p>
+
+    <hr>
+    {{kachelOpened}}
 
     <!-- {{ kachelOpened }}
     {{ kachelOpened.dayId }} -->
@@ -39,6 +44,9 @@ export default {
       userId() {
         return this.$userId; // Access global property
       },
+      backend(){
+        return this.$backendlink;
+      }
       // kachelOpened(dayId){
       //   return this.kachelOpened.dayId
       // }
@@ -47,6 +55,7 @@ export default {
     return {
       data: [],
       kachelOpened: [],
+      //backend: "http://localhost/backend-hanno-empowered"
      // kachelArray: [],
       //unclicked: false,
       //testId: 13,
@@ -65,7 +74,7 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get('http://localhost/backend-hanno-empowered/calendar.php') // Adjust the URL as per your setup
+      axios.get(this.backend+'/calendar.php') // Adjust the URL as per your setup
         .then(response => {
           this.data = response.data;
         })
@@ -74,15 +83,15 @@ export default {
         });
     },
     getOffeneKachelnByUserId() {
-      axios.get('http://localhost/backend-hanno-empowered/user.php', {
+      axios.get(this.backend+'/user.php', {
                 params: {
                     action: 'fetchuserdata',
                     userId: this.$userId
                 }
             })
         .then(response => {
-                  console.log('Response data:', response.data); // Debugging: check response
-          this.kachelOpened = response.data;
+            console.log('Response data kachelOpened: null, undefined or Object?:', response.data); // Debugging: check response
+          this.kachelOpened = response.data || [];
         })
         .catch(error => {
           console.error('Error fetching userData:', error);
@@ -91,9 +100,20 @@ export default {
     //TODO(Manu) maybe not necessary, check if existing Array might be sufficent
     checkDayIdExists(searchId) {
       console.log("id: " + searchId);
+      // console.log("kachelOpened:", this.kachelOpened);
+      console.log("Type:", typeof this.kachelOpened);
+     /*   if (!Array.isArray(this.kachelOpened)) {
+          throw new Error("DEBUG!! kachelOpened is not an array");
+        }*/
+      if (!Array.isArray(this.kachelOpened)) {
+        this.kachelOpened = [this.kachelOpened];
+      }
       return this.kachelOpened.some(item => item.dayId === Number(searchId));
     },
     filterByDayId(searchId) {
+        if (!Array.isArray(this.kachelOpened)) {
+          this.kachelOpened = [this.kachelOpened];
+        }
       return this.kachelOpened.filter(item => item.dayId === Number(searchId));
 }
   }
