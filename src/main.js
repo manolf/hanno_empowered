@@ -38,20 +38,22 @@ app.config.globalProperties.$userId = userId;
 
 //global property for backend link
 const isProduction = process.env.NODE_ENV === 'production';
-const hostname = window.location.hostname;
+//const hostname = window.location.hostname;
 let backendLink;
 
 if (isProduction) {
+  backendLink = 'https://playground.fitmithanno.fun/api';
   // Handle production cases
-  if (hostname === 'test.fitmithanno.fun') {
-    backendLink = 'https://test.fitmithanno.fun/api';
-  } else if (hostname === 'www.fitmithanno.fun') {
-    backendLink = 'https://www.fitmithanno.fun/api';
-  } else {
-    // Default to a fallback URL if the subdomain is unexpected
-    backendLink = 'https://www.fitmithanno.fun/api';
-  }
-} else {
+  // if (hostname === 'test.fitmithanno.fun') {
+  //   backendLink = 'https://test.fitmithanno.fun/api';
+  // } else if (hostname === 'www.fitmithanno.fun') {
+  //   backendLink = 'https://www.fitmithanno.fun/api';
+  // } else {
+  //   // Default to a fallback URL if the subdomain is unexpected
+  //   backendLink = 'https://www.fitmithanno.fun/api';
+  // }
+} 
+else {
   // For development, always use localhost API
   backendLink = 'http://localhost/api';
 }

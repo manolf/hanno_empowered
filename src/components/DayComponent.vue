@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="dayData.dayId <= today">
 
     <div class="wrapper">
         <div class="left container container-day my-5 z-depth-1 rounded bg-white">
@@ -76,6 +76,9 @@
         </div>
     </div>
 </div>
+<div v-else>
+    <h4>sorry buddy... du bist zu früh dran!</h4>
+</div>
 
 </template>
 
@@ -98,6 +101,7 @@ export default {
             dayData: {},
             imgSrc: '',
             message: '',
+            today: null
             //backend: 'http://localhost/backend-hanno-empowered'
         }
     },
@@ -114,6 +118,9 @@ export default {
     },
     mounted() {
         this.fetchSingleDay();
+        const now = new Date();
+        this.today = now.getDate(); // Sets today's day (1-31)
+        console.log("Today's day:", this.today);
 
     },
     // created(){
