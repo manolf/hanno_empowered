@@ -5,13 +5,16 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
+import { BootstrapVue3 } from 'bootstrap-vue-3';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faInstagram, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { getCookie, setCookie, generateRandomUserId } from './utils/cookies';
 
-library.add(faFacebookF, faInstagram);
+library.add(faFacebookF, faInstagram, faLinkedin, faTwitter );
 
 //vorhin ohne fa
 //createApp(App).use(router).use(bootstrap).mount('#app')
@@ -64,5 +67,6 @@ app.config.globalProperties.$backendlink = backendLink;
 
 app.use(router);
 app.use(bootstrap);
+app.use(BootstrapVue3);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount('#app');

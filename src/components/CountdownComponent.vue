@@ -45,7 +45,7 @@ export default {
   .ant-border {
 	
 	border: 3px dashed rgb(82, 11, 11);
-	border-color: #c8560f;
+	border-color: rgb(82, 11, 11);
 	/*padding: 10px;
 	animation: ant-border 1s infinite; */
 }

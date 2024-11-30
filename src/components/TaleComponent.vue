@@ -3,6 +3,12 @@
 		<h2>Adventgeschichten</h2>
 	</div>
 
+
+  <div class="view" >
+      <img src='../assets/img/schneeschaufeln_transparent.png' alt="Logo Hanno und Rudo" style="width: 100%; height:auto;" class="img-fluid rounded">
+  </div>
+  <p>... under construction...</p>
+
   </template>
   
   <script>

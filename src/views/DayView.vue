@@ -2,7 +2,8 @@
   <HeaderComponent></HeaderComponent>
     <div class="calendar">
       <h1>TagView</h1>
-      <DayComponent></DayComponent>
+      <p>Here is the content for day {{ id }}.</p>
+      <DayComponent :id="id"></DayComponent>
       
     </div>
   </template>
@@ -15,6 +16,12 @@
   
   export default {
     name: 'DayView',
+    props: {
+            id: {
+                type: Number, // or Number if you know `id` is numeric
+                required: true,
+            },
+        },
     components: {
       HeaderComponent,
       DayComponent

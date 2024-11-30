@@ -2,38 +2,80 @@
 
   <div class="container">
     <!-- Header with countdownComponent -->
-    <div class="row">
+    <div v-if="!timeReady" class="row">
         <div class="col">
           <countdown-component></countdown-component>
         </div>
     </div>
 
-    <div class="row">
+    <div v-if="timeReady" class="calendar">
+      <h1>Hurra</h1>
+      <h4>Endlich ist es wieder soweit! Viel Spaß beim Mitmachen! </h4>
+      <CalendarComponent></CalendarComponent>
+      
+    </div>
+
+    <div v-else class="row">
         <div class="col-md-6 mb-4">
             <a href="#">
-                <img v-if="showStartImage" src="../assets/img/vector_logo_color.svg" class="img-fluid" alt="logo_hanno_and_rudolph coloured" @click="toggleImage">
+                <img v-if="showStartImage" src="../assets/img/schneeschaufeln_transparent.png" class="img-fluid" alt="logo_hanno_and_rudolph coloured" @click="toggleImage">
 
-                <img v-else src="../assets/img/vector_logo_white_fill_bw.svg" class="img-fluid" alt="logo_hanno_and_rudolph black_and_white" @click="toggleImage">
+                <img v-else src="../assets/img/vector_logo_color.svg" class="img-fluid" alt="logo_hanno_and_rudolph black_and_white" @click="toggleImage">
             </a>
         </div>
 
         <div class="col-md-6 mb-4">
           <div class="p-4 border rounded">
               <br><br><br>
-              <h2 class="pb-4">Willkommen liebe Freund:Innen einer bewegten Adventzeit!! </h2>
-              <p class="fw-bold">noch soooo lange hin..</p>
-              <p>..trotzdem bereiten wir uns schon jetzt intensiv auf die große Adventszeit vor!
-              Es wird wieder Tabata-Workouts im gewohnten Format geben, die euch in Schwung und Form bringen werden. 
-              Die Yogis unter euch werden auch auf ihre Kosten kommen, versprochen!
+              <h2 class="pb-4">Liebe Freund:Innen einer bewegten Adventzeit!!</h2>
+              <p class="fw-bold">bald ist es soweit..</p>
+              <p>..nur noch wenige Stunden und dann ist der sportliche Adventskalender - gespickt mit 
+              lustigen Tabata-Workouts für Euch freigegeben!
               </p>
+              <p>Wärmt Euch schon mal auf! </p>
 
-              <p>Aber wir haben auch heuer etwas ganz Neues geplant: Wir wollen noch nicht zuviel verraten, nur: es wird eine Überraschung für die Kleineren unter uns werden... aber... psst! Die Zeit ist noch nicht reif!</p>
-              <p>Viel Spaß inzwischen! Und vergesst nicht auf ausreichende Bewegung!</p>
+              <p>Wir sehen uns in Kürze und scharren schon mit den Hufen!</p>
               <p class="fw-bold">Euer Fit-Mit-Hanno Team</p>
           </div>
       </div>
+    </div>
 
-      <div class="row">
+    <div class="row">
+        <!-- <div class="col-md-6 mb-4">
+            <a href="#">
+                <img v-if="showStartImage" src="../assets/img/schubkarre_transparent.png" class="img-fluid" alt="logo_hanno_and_rudolph coloured" @click="toggleImage">
+
+                <img v-else src="../assets/img/schneeschaufeln_transparent.png" class="img-fluid" alt="logo_hanno_and_rudolph black_and_white" @click="toggleImage">
+            </a>
+        </div> -->
+
+        <!-- <div class="col-md-6 mb-4">
+          <h2>Zum Adventkalender</h2>
+
+          <p>.. unser sportlicher Klassiker - click and enjoy</p>
+           <router-link to="/calendar">
+              <img src="../assets/img/screenshot_calendar.png" class="img-fluid" alt="adventkalender">
+            </router-link>
+        </div> -->
+
+        <!-- <div class="col-md-6 mb-4">
+          <div class="p-4 border rounded">
+              <br><br><br>
+              <h2 class="pb-4">Willkommen liebe Freund:Innen einer bewegten Adventzeit!! </h2>
+              <p class="fw-bold">bald ist es soweit..</p>
+              <p>..seid Ihr auch schon so aufgeregt wie wird? Mit 1.Dezember startet die große Adventszeit und wir geben wieder unser Bestes, um euch mit den tägnlichen 4 Minuten sportlichen Spaß zu beglücken!
+              Lustige Tabata-Workouts, gespickt mit Weihnachtsmusik und vorgetragen sowohl von routinierten SportlerInnen als auch Sprößlingen der Hobby- und Couchliga warten auf euch. 
+              </p>
+
+              <p>Für jeden ist etwas dabei! Außerdem wird es heuer ein paar Überraschungen geben, 
+                also bleibt dran!</p>
+              <p>Also schnell dem Ruf Hannos und Rudis auf unseren sozialen Plattformen auf dem Laufenden folgen, um nichts zu versäumen!</p>
+              <p class="fw-bold">Euer Fit-Mit-Hanno Team</p>
+          </div>
+      </div> -->
+
+      <!-- <div class="row">
+        
         <div class="col-md-6 mb-4">
           <div class="p-4 border rounded">
 
@@ -63,16 +105,11 @@
                 </router-link>
         </div>
 
-      </div>
+      </div> -->
 
-      <!-- Footer meanwhile -->
-      <div class="row">
-          <div class="col text-center my-4"> 
-            <a class="icon px-3" href="https://www.facebook.com/profile.php?id=100087709973763" target="_blank"><font-awesome-icon :icon="['fab', 'facebook-f']" size="2x"/></a>
-            <a class="icon px-3" href="https://www.instagram.com/elf.hanno/" target="_blank"><font-awesome-icon :icon="['fab', 'instagram']" size="2x"/></a>
-          </div>
-      </div>
   </div>
+
+  <footer-component></footer-component>
 
 </div>
 
@@ -81,22 +118,37 @@
 <script>
 // @ is an alias to /src
 import CountdownComponent from '../components/CountdownComponent.vue'
+import CalendarComponent from '@/components/CalendarComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
   name: 'Hanno-Advent',
   components: {
-    CountdownComponent
+    CountdownComponent,
+    CalendarComponent,
+    FooterComponent,
+
   },
   data(){
     return{
-      showStartImage: true
+      showStartImage: true,
+      TimeIsCome: true
     }
   },
   methods:{
     toggleImage() {
       this.showStartImage = !this.showStartImage;
     }
-  }
+  },
+  computed: {
+    timeReady() {
+      const now = new Date();
+      const targetDate = new Date('2025-12-01T00:00:00');
+      return now >= targetDate;
+    },
+  },
+  // mounted()
+  //   this.calculateTime();
 }
 </script>
 
@@ -108,27 +160,27 @@ sans-serif;
 margin: 0;
 
 h2, h3, h4{
-  color:#c8560f;
+      color: rgb(153, 0, 0);
 }
 
 h2{
-  color:#c8560f;
+      color: rgb(153, 0, 0);
 }
 
 ul {
   /* background-color: rgb(102, 102, 51) !important; */
   background-color: black;
-  color:#c8560f;
+      color: rgb(153, 0, 0);
   font-weight: bold;
 }
 
 li a {
-  color:#c8560f;
+      color: rgb(153, 0, 0);
   font-weight: bold;
 }
 
 .icon{
-  color:#c8560f;
+      color: rgb(153, 0, 0);
   font-weight: bold;
 }
 

@@ -1,7 +1,8 @@
 <template>
   <div>
-    Testversion 3 - mit Async and Loading and debug_log extended
-    <p>Kachel clicked: {{ clicked }}</p>
+    
+    Testversion, 2do (kachel unklickbar machen, wenn in der Zukunft)
+    <!-- <p>Kachel clicked: {{ clicked }}</p>
     <p>userId: {{userId}}</p>
     <p>calendar</p>
 
@@ -13,14 +14,14 @@
 
     <div v-for="item in this.kachelOpened" :key="item.dayId">
       {{item.dayId}} | {{item.tabataName}} 
-    </div>
+    </div> -->
 
     <!-- <p>all kacheln</p>
     <div v-for="item in this.allKacheln" :key="item.dayId">
       {{item.dayId}} | {{item.tabataName}} | {{ item.userId }}
     </div> -->
 
-    <h4>backend: {{backend}} </h4>
+    <!-- <h4>backend: {{backend}} </h4> -->
 
    <!-- <p>this.isDayWithTabata(5); {{ arrayTest }} </p>
    <p>this.filterByDayId(5); {{ arrayTest2 }} </p> -->
@@ -41,13 +42,33 @@
       <KachelComponent 
         v-if="item.dayId < 100"  
         :clicked="isDayWithTabata(item.dayId)"
-        :dayId="item.dayId"
+        :dayId="item.cday"
         :itemArray="filterByDayId(item.dayId)" 
         >
       </KachelComponent>
     </div> -->
 
+<!-- 
+    <router-link :to="{ name: 'DayView', params: { id:5  } }">
+      Go to Day 5
+    </router-link> -->
+
     <div v-for="item in this.allKacheln" :key="item.dayId">
+      <!-- {{ item.dayId }} -->
+      <KachelComponent 
+        v-if="item.dayId < 100"  
+        :clicked="item.userId !== undefined && item.userId !== null"
+        :dayId="item.dayId"
+        :itemArray="createItemArray(item)" 
+        @kachelClicked="goToDayPage(item.dayId)"
+        >
+      </KachelComponent>
+    </div>
+
+<!-- Version with routes -->
+    <!-- <div v-for="item in this.allKacheln" :key="item.dayId">
+      {{ item.dayId }}
+
       <KachelComponent 
         v-if="item.dayId < 100"  
         :clicked="item.userId !== undefined && item.userId !== null"
@@ -55,7 +76,10 @@
         :itemArray="createItemArray(item)" 
         >
       </KachelComponent>
-    </div>
+    </div> -->
+
+
+
 
 
   </div>
@@ -88,13 +112,14 @@ export default {
   },
   data() {
     return {
-      data: [],
-      kachelOpened: [],
+     // data: [],
+     // kachelOpened: [],
       allKacheln: [],
       loading: true, // Indicates whether data is still being fetched
     };
   },
   mounted() {
+   // this.getAllKachelnByUserId();
     this.fetchAllData();
    console.log('Component mounted, userId:', this.$userId); 
   },
@@ -110,23 +135,32 @@ export default {
     async fetchAllData() {
     try {
      // await this.getOffeneKachelnByUserId();
-     // await this.fetchData();
-      await this.getAllKachelnByUserId();
+     await this.fetchData();
+    //await this.getAllKachelnByUserId();
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
       this.loading = false; // Ensure loading is false regardless of success or failure
     }
   },
-    // fetchData() {
-    //   axios.get(this.backend + '/calendar.php')
-    //     .then(response => {
-    //       this.data = response.data;
-    //     })
-    //     .catch(error => {
-    //       console.error('Error fetching calendardata:', error);
-    //     });
-    // },
+    fetchData() {
+      axios.get(this.backend + '/calendar.php',
+      {
+          params: {
+            userId: this.$userId
+          }
+      })
+        .then(response => {
+          this.allKacheln = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching calendardata:', error);
+        });
+    },
+    goToDayPage(dayId) {
+      console.log("in go to page");
+      this.$router.push({ name: 'DayView', query: { dayId } });
+    },
     // getOffeneKachelnByUserId() {
     //   axios.get(this.backend + '/user.php', {
     //     params: {
@@ -149,28 +183,28 @@ export default {
     //     this.kachelOpened = []; // Fallback to an empty array in case of an error
     //   });
     // },
-    getAllKachelnByUserId() {
-      axios.get(this.backend + '/user.php', {
-        params: {
-          action: 'fetchnewdata',
-          userId: this.$userId
-        }
-      })
-        .then(response => {
+    // getAllKachelnByUserId() {
+    //   axios.get(this.backend + '/user.php', {
+    //     params: {
+    //       action: 'fetchnewdata',
+    //       userId: this.$userId
+    //     }
+    //   })
+    //     .then(response => {
 
-      console.log('Response data CHECK 1 :', response.data); // Debugging: check response
-      if (Array.isArray(response.data)) {
-        this.allKacheln = response.data; // Assign only if it's an array
-      } else {
-        console.error('Response data is not an array:', response.data);
-        this.allKacheln = []; // Fallback to an empty array
-      }
-      })
-      .catch(error => {
-        console.error('Error fetching userData:', error);
-        this.kachelOpened = []; // Fallback to an empty array in case of an error
-      });
-    },
+    //   console.log('Response data CHECK 1 :', response.data); // Debugging: check response
+    //   if (Array.isArray(response.data)) {
+    //     this.allKacheln = response.data; // Assign only if it's an array
+    //   } else {
+    //     console.error('Response data is not an array:', response.data);
+    //     this.allKacheln = []; // Fallback to an empty array
+    //   }
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching userData:', error);
+    //     this.kachelOpened = []; // Fallback to an empty array in case of an error
+    //   });
+    // },
     //TODO(Manu) maybe not necessary, check if existing Array might be sufficent
     // isDayWithTabata(searchId) {
     //   const answer = this.kachelOpened.some(item => item.dayId === Number(searchId));
